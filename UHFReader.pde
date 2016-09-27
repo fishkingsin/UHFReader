@@ -23,6 +23,54 @@ DropdownList dropListSensivitiy;
 void setup() 
 {
   size(800, 600);
+  cp5 = new ControlP5(this);
+  
+  
+  int posX = (int)(width*0.5);
+  int posY = 10;
+  
+  cp5.enableShortcuts();
+  frameRate(50);
+
+  cp5.addButton("Read")
+    .setValue(0)
+    .setPosition(posX, posY)
+    .setSize(200, 10)
+    ;
+
+  myTextarea = cp5.addTextarea("console")
+    .setPosition(0, 0)
+    .setSize(posX, height)
+    .setFont(createFont("", 10))
+    .setLineHeight(14)
+    .setColor(color(200))
+    .setColorBackground(color(0, 100))
+    .setColorForeground(color(255, 100));
+  console = cp5.addConsole(myTextarea);//
+
+
+  cp5.addLabel("SENSITIVITY",posX, posY+=20);
+  dropListSensivitiy = cp5.addDropdownList("SENSITIVITY_DROPLIST")
+    .setPosition(posX, posY+=20);
+  dropListSensivitiy.setBackgroundColor(color(190));
+  dropListSensivitiy.setItemHeight(20);
+  dropListSensivitiy.setBarHeight(15);
+  //dropListSensivitiy.getCaptionLabel().set("SENSITIVITY");
+
+  dropListSensivitiy.addItem("16", 0);
+  dropListSensivitiy.addItem("17", 1);
+  dropListSensivitiy.addItem("18", 2);
+  dropListSensivitiy.addItem("19", 3);
+  dropListSensivitiy.addItem("20", 4);
+  dropListSensivitiy.addItem("21", 5);
+  dropListSensivitiy.addItem("22", 6);
+  dropListSensivitiy.addItem("23", 7);
+
+  //ddl.scroll(0);
+  dropListSensivitiy.setColorBackground(color(60));
+  dropListSensivitiy.setColorActive(color(255, 128));
+
+  bRead = false;
   // I know that the first port in the serial list on my mac
   // is always my  FTDI adaptor, so I open Serial.list()[0].
   // On Windows machines, this generally opens COM1.
@@ -45,47 +93,6 @@ void setup()
     String version = new String(versionBytes);
     println("version "+ version);
   }
-  cp5 = new ControlP5(this);
-  cp5.enableShortcuts();
-  frameRate(50);
-
-  cp5.addButton("Read")
-    .setValue(0)
-    .setPosition((int)(width*0.5), 10)
-    .setSize(200, 19)
-    ;
-
-  myTextarea = cp5.addTextarea("console")
-    .setPosition(0, 0)
-    .setSize((int)(width*0.5), height)
-    .setFont(createFont("", 10))
-    .setLineHeight(14)
-    .setColor(color(200))
-    .setColorBackground(color(0, 100))
-    .setColorForeground(color(255, 100));
-  console = cp5.addConsole(myTextarea);//
-
-  dropListSensivitiy = cp5.addDropdownList("SENSITIVITY")
-    .setPosition((int)(width*0.5), 30);
-  dropListSensivitiy.setBackgroundColor(color(190));
-  dropListSensivitiy.setItemHeight(20);
-  dropListSensivitiy.setBarHeight(15);
-  dropListSensivitiy.getCaptionLabel().set("SENSITIVITY");
-
-  dropListSensivitiy.addItem("16", 0);
-  dropListSensivitiy.addItem("17", 1);
-  dropListSensivitiy.addItem("18", 2);
-  dropListSensivitiy.addItem("19", 3);
-  dropListSensivitiy.addItem("20", 4);
-  dropListSensivitiy.addItem("21", 5);
-  dropListSensivitiy.addItem("22", 6);
-  dropListSensivitiy.addItem("23", 7);
-
-  //ddl.scroll(0);
-  dropListSensivitiy.setColorBackground(color(60));
-  dropListSensivitiy.setColorActive(color(255, 128));
-
-  bRead = false;
 }
 
 

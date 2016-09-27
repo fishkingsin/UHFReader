@@ -214,7 +214,8 @@ class NewSendCommendManager implements CommendManager {
     this.sendCMD(cmd);
     byte[] recv1 = this.read();
     if (recv1 != null) {
-      Log.i("result", "recv: " + Tools.Bytes2HexString(recv1, recv1.length));
+      byte [] ret = handlerResponse(recv1);
+      Log.i("result", "ret: " + Tools.Bytes2HexString(ret, ret.length));
       byte[] content1 = this.handlerResponse(recv1);
       if (content1 != null) {
         return true;
@@ -781,11 +782,11 @@ class NewSendCommendManager implements CommendManager {
     boolean crc = false;
     int responseLength = response.length;
     if (response.length == 0) {
-      //Log.e("handlerResponse", "response null");
+      Log.e("handlerResponse", "response null");
       return data;
     }
     if (response[0] != -69) {
-      //Log.e("handlerResponse", "head error");
+      Log.e("handlerResponse", "head error");
       return data;
     } else if (response[responseLength - 1] != 126) {
       Log.e("handlerResponse", "end error");
@@ -802,7 +803,7 @@ class NewSendCommendManager implements CommendManager {
         return data;
       } else {
         if (dataLength != 0 && responseLength == dataLength + 7) {
-          //                    Log.v("handlerResponse", "response right");
+          Log.v("handlerResponse", "response right");
           data = new byte[dataLength + 1];
           data[0] = response[2];
           System.arraycopy(response, 5, data, 1, dataLength);
